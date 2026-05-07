@@ -16,38 +16,29 @@ class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-           
-            ->add('FirstName', null, ['label' =>'Prénom'])
-            ->add('LastName', null, ['label'=>'Nom'])
-            ->add('CompanyName', null, ['label'=>"Nom de l'entreprise"])
-            ->add('Iban', null, ['label'=>"N° IBAN"] )
-            ->add('email')
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue(
-                        message: 'You should agree to our terms.',
-                    ),
-                ],
-            ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank(
-                        message: 'Please enter a password',
-                    ),
-                    new Length(
-                        min: 6,
-                        minMessage: 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        max: 4096,
-                    ),
-                ],
-            ])
+    $builder
+        ->add('firstName', null, ['label' => 'Prénom'])
+        ->add('lastName', null, ['label' => 'Nom'])
+        ->add('companyName', null, ['label' => "Nom de l'entreprise"])
+        ->add('adress', null, ['label' => 'Adresse', 'required' => false])
+        ->add('postalCode', null, ['label' => 'Code postal'])
+        ->add('town', null, ['label' => 'Ville'])
+        ->add('iban', null, ['label' => 'N° IBAN'])
+        ->add('siret', null, ['label' => 'N° SIRET'])
+        ->add('siren', null, ['label' => 'N° SIREN'])
+        ->add('email')
+        ->add('agreeTerms', CheckboxType::class, [
+            'mapped' => false,
+            'constraints' => [new IsTrue(message: 'You should agree to our terms.')],
+        ])
+        ->add('plainPassword', PasswordType::class, [
+            'mapped' => false,
+            'attr' => ['autocomplete' => 'new-password'],
+            'constraints' => [
+                new NotBlank(message: 'Please enter a password'),
+                new Length(min: 6, minMessage: 'Your password should be at least {{ limit }} characters', max: 4096),
+            ],
+        ])
         ;
             
     }

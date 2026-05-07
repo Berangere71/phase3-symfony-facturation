@@ -6,7 +6,7 @@
 <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
     <div class="w-full max-w-lg">
 
-        {#Header#}
+        {# Header #}
         <div class="text-center mb-8">
             <div class="flex justify-center mb-4">
                 <svg class="w-12 h-12 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -21,116 +21,98 @@
             </p>
         </div>
 
-        {#Flash messages#}
+        {# Flash messages #}
         {% for message in app.flashes('error') %}
-            <div class="mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm">
-                {{ message }}
-            </div>
+            <div class="mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm">{{ message }}</div>
         {% endfor %}
         {% for message in app.flashes('success') %}
-            <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm">
-                {{ message }}
-            </div>
+            <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm">{{ message }}</div>
         {% endfor %}
 
-        {#Card#}
+        {# Card #}
         <div class="bg-white rounded-2xl shadow-sm ring-1 ring-black/5 p-8">
-            {{ form_start(registrationForm, {
-                'attr': {
-                    'novalidate': 'novalidate',
-                    'class': 'space-y-5'
-                }
-            }) }}
+            {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate', 'class': 'space-y-5'}}) }}
 
-                {#Prénom / Nom#}
+                {# Prénom / Nom #}
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        {{ form_label(registrationForm.FirstName, null, {
-                            'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}
-                        }) }}
-                        {{ form_widget(registrationForm.FirstName, {
-                            'attr': {
-                                'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition',
-                                'placeholder': 'Prénom'
-                            }
-                        }) }}
-                        {{ form_errors(registrationForm.FirstName) }}
+                        {{ form_label(registrationForm.firstName, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                        {{ form_widget(registrationForm.firstName, {'attr': {'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition', 'placeholder': 'Prénom'}}) }}
+                        {{ form_errors(registrationForm.firstName) }}
                     </div>
                     <div>
-                        {{ form_label(registrationForm.LastName, null, {
-                            'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}
-                        }) }}
-                        {{ form_widget(registrationForm.LastName, {
-                            'attr': {
-                                'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition',
-                                'placeholder': 'Nom'
-                            }
-                        }) }}
-                        {{ form_errors(registrationForm.LastName) }}
+                        {{ form_label(registrationForm.lastName, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                        {{ form_widget(registrationForm.lastName, {'attr': {'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition', 'placeholder': 'Nom'}}) }}
+                        {{ form_errors(registrationForm.lastName) }}
                     </div>
                 </div>
 
-                {#Raison Sociale#}
+                {# Raison Sociale #}
                 <div>
-                    {{ form_label(registrationForm.CompanyName, 'Raison Sociale', {
-                        'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}
-                    }) }}
-                    {{ form_widget(registrationForm.CompanyName, {
-                        'attr': {
-                            'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition',
-                            'placeholder': 'Entreprise'
-                        }
-                    }) }}
-                    {{ form_errors(registrationForm.CompanyName) }}
+                    {{ form_label(registrationForm.companyName, 'Raison Sociale', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                    {{ form_widget(registrationForm.companyName, {'attr': {'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition', 'placeholder': 'Entreprise'}}) }}
+                    {{ form_errors(registrationForm.companyName) }}
                 </div>
 
-                {#IBAN#}
+                {# Adresse #}
                 <div>
-                    {{ form_label(registrationForm.Iban, 'IBAN', {
-                        'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}
-                    }) }}
-                    {{ form_widget(registrationForm.Iban, {
-                        'attr': {
-                            'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition font-mono',
-                            'placeholder': 'FR76 1234 5678 9012 3456 7890 123'
-                        }
-                    }) }}
-                    {{ form_errors(registrationForm.Iban) }}
+                    {{ form_label(registrationForm.adress, 'Adresse', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                    {{ form_widget(registrationForm.adress, {'attr': {'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition', 'placeholder': '12 rue de la Paix'}}) }}
+                    {{ form_errors(registrationForm.adress) }}
                 </div>
 
-                {#Email#}
+                {# Code postal / Ville #}
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        {{ form_label(registrationForm.postalCode, 'Code postal', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                        {{ form_widget(registrationForm.postalCode, {'attr': {'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition', 'placeholder': '75000'}}) }}
+                        {{ form_errors(registrationForm.postalCode) }}
+                    </div>
+                    <div>
+                        {{ form_label(registrationForm.town, 'Ville', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                        {{ form_widget(registrationForm.town, {'attr': {'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition', 'placeholder': 'Paris'}}) }}
+                        {{ form_errors(registrationForm.town) }}
+                    </div>
+                </div>
+
+                {# SIRET / SIREN #}
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        {{ form_label(registrationForm.siret, 'N° SIRET', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                        {{ form_widget(registrationForm.siret, {'attr': {'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 transition', 'placeholder': '12345678900010'}}) }}
+                        {{ form_errors(registrationForm.siret) }}
+                    </div>
+                    <div>
+                        {{ form_label(registrationForm.siren, 'N° SIREN', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                        {{ form_widget(registrationForm.siren, {'attr': {'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 transition', 'placeholder': '123456789'}}) }}
+                        {{ form_errors(registrationForm.siren) }}
+                    </div>
+                </div>
+
+                {# IBAN #}
                 <div>
-                    {{ form_label(registrationForm.email, 'Adresse Email', {
-                        'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}
-                    }) }}
-                    {{ form_widget(registrationForm.email, {
-                        'attr': {
-                            'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition',
-                            'placeholder': 'contact@entreprise.fr'
-                        }
-                    }) }}
+                    {{ form_label(registrationForm.iban, 'IBAN', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                    {{ form_widget(registrationForm.iban, {'attr': {'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 transition', 'placeholder': 'FR76 1234 5678 9012 3456 7890 123'}}) }}
+                    {{ form_errors(registrationForm.iban) }}
+                </div>
+
+                {# Email #}
+                <div>
+                    {{ form_label(registrationForm.email, 'Adresse Email', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition', 'placeholder': 'contact@entreprise.fr'}}) }}
                     {{ form_errors(registrationForm.email) }}
                 </div>
 
-                {#Mot de passe#}
+                {# Mot de passe #}
                 <div>
-                    {{ form_label(registrationForm.plainPassword, 'Mot de passe', {
-                        'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}
-                    }) }}
-                    {{ form_widget(registrationForm.plainPassword, {
-                        'attr': {
-                            'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition',
-                            'placeholder': '••••••••'
-                        }
-                    }) }}
+                    {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition', 'placeholder': '••••••••'}}) }}
                     {{ form_errors(registrationForm.plainPassword) }}
                 </div>
 
-                {#CGU#}
+                {# CGU #}
                 <div class="flex items-start gap-3 pt-1">
-                    {{ form_widget(registrationForm.agreeTerms, {
-                        'attr': {'class': 'mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer'}
-                    }) }}
+                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer'}}) }}
                     <label for="{{ registrationForm.agreeTerms.vars.id }}" class="text-sm text-gray-500 cursor-pointer leading-relaxed">
                         J'accepte les <a href="#" class="text-blue-600 font-medium hover:underline">conditions d'utilisation</a>
                         et la <a href="#" class="text-blue-600 font-medium hover:underline">politique de confidentialité</a>
@@ -138,15 +120,13 @@
                 </div>
                 {{ form_errors(registrationForm.agreeTerms) }}
 
-                {#Submit#}
-                <button type="submit"
-                    class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-95">
+                {# Submit #}
+                <button type="submit" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-95">
                     Créer mon compte
                 </button>
 
             {{ form_end(registrationForm) }}
         </div>
-
     </div>
 </div>
 {% endblock %}

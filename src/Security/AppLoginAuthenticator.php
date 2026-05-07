@@ -49,7 +49,7 @@ class AppLoginAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // On redirige vers la route 'app_user_index' (ou une autre route de ton choix)
-        return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
+        return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
     }
     protected function getLoginUrl(Request $request): string
     {
