@@ -24,8 +24,7 @@
     <body class="bg-[#F8FAFC] flex ">
         
         {# On inclut la sidebar uniquement si l'utilisateur est connecté (optionnel) #}
-        {{ include('components/sidebar.html.twig') }}
-
+        <twig:Sidebar />
         {# Le contenu de tes pages se décalera de 64 (w-64 de la sidebar) #}
         <main class="flex-1 ml-64 p-10 min-h-screen">
             {% block body %}{% endblock %}

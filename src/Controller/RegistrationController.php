@@ -10,34 +10,45 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use App\Security\AppAuthenticator;
 
+#[Route('/register', name: 'app_register')]
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
-    {
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
+   public function register(
+    Request $request,
+    UserPasswordHasherInterface $userPasswordHasher,
+    EntityManagerInterface $entityManager,
+    UserAuthenticatorInterface $userAuthenticator,
+    AppAuthenticator $authenticator
+): Response
+{
+    $user = new User();
+    $form = $this->createForm(RegistrationFormType::class, $user);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var string $plainPassword */
-            $plainPassword = $form->get('plainPassword')->getData();
+    if ($form->isSubmitted() && $form->isValid()) {
 
-            // encode the plain password
-            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-            $user->setAdress('');
-    
-            $entityManager->persist($user);
-            $entityManager->flush();
+        $plainPassword = $form->get('plainPassword')->getData();
 
-            // do anything else you need here, like send an email
+        $user->setPassword(
+            $userPasswordHasher->hashPassword($user, $plainPassword)
+        );
 
-            return $this->redirectToRoute('app_user_index');
-        }
+        $entityManager->persist($user);
+        $entityManager->flush();
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form,
-        ]);
+        // ✅ AUTO LOGIN
+        return $userAuthenticator->authenticateUser(
+            $user,
+            $authenticator,
+            $request
+        );
     }
+
+    return $this->render('registration/register.html.twig', [
+        'registrationForm' => $form,
+    ]);
+}
 }
