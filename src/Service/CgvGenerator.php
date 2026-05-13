@@ -3,56 +3,34 @@
 namespace App\Service;
 
 use App\Entity\User;
+use Twig\Environment;
 
 class CgvGenerator
 {
+    public function __construct(
+        private Environment $twig
+    ) {}
+
     public function generate(User $user): string
     {
-        return match ($user->getCompanyType()) {
+        $template = match ($user->getCompanyType()) {
 
-            'auto_entrepreneur' => $this->autoEntrepreneur(),
+            'association' => 'cgv/association.txt.twig',
+            'sarl' => 'cgv/sarl.txt.twig',
+            'sas' => 'cgv/sas.txt.twig',
+            'sa' => 'cgv/sa.txt.twig',
+            'eurl' => 'cgv/eurl.txt.twig',
+            'auto' => 'cgv/auto.txt.twig',
 
-            'association' => $this->association(),
-
-            'eurl' => $this->eurl(),
-
-            'sarl' => $this->sarl(),
-
-            'sas' => $this->sas(),
-            
-            'sa' => $this->sa(),
-
-            default => '',
+            default => null,
         };
-    }
 
-    private function autoEntrepreneur(): string
-    {
-        return "CGV AUTO-ENTREPRENEUR";
-    }
+        if (!$template) {
+            return '';
+        }
 
-    private function association(): string
-    {
-        return "CGV ASSOCIATION";
-    }
-
-    private function eurl(): string
-    {
-        return "CGV EURL";
-    }
-
-    private function sarl(): string
-    {
-        return "CGV SARL";
-    }
-
-    private function sas(): string
-    {
-        return "CGV SAS / SASU";
-    }
-
-    private function sa(): string
-    {
-        return "CGV SA";
+        return $this->twig->render($template, [
+            'user' => $user
+        ]);
     }
 }

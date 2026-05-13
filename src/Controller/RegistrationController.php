@@ -11,18 +11,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use App\Security\AppAuthenticator;
+use App\Security\AppLoginAuthenticator;
 
-#[Route('/register', name: 'app_register')]
 class RegistrationController extends AbstractController
 {
-   public function register(
+    #[Route('/register', name: 'app_register')]
+ public function register(
     Request $request,
     UserPasswordHasherInterface $userPasswordHasher,
     EntityManagerInterface $entityManager,
     UserAuthenticatorInterface $userAuthenticator,
-    AppAuthenticator $authenticator
+    AppLoginAuthenticator $authenticator
 ): Response
+
+
 {
     $user = new User();
     $form = $this->createForm(RegistrationFormType::class, $user);
