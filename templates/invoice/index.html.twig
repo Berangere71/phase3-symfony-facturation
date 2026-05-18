@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Factures{% endblock %}
+
+{% block body %}
+
+<div class="max-w-6xl mx-auto">
+
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-2xl font-bold">Mes factures</h1>
+
+        <a href="{{ path('app_invoice_new') }}"
+           class="bg-blue-600 text-white px-4 py-2 rounded-xl">
+            + Nouvelle facture
+        </a>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+
+        <table class="w-full">
+
+            <thead class="bg-gray-50 border-b">
+                <tr>
+                    <th class="text-left p-4">Numéro</th>
+                    <th class="text-left p-4">Client</th>
+                    <th class="text-left p-4">Statut</th>
+                    <th class="text-left p-4">Montant</th>
+                    <th class="text-left p-4">Date</th>
+                    <th class="text-right p-4">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for invoice in invoices %}
+
+                <tr class="border-b hover:bg-gray-50">
+
+                    <td class="p-4 font-medium">
+                        {{ invoice.number }}
+                    </td>
+
+                    <td class="p-4">
+                        {{ invoice.client.name }}
+                    </td>
+
+                    <td class="p-4">
+
+                        {% if invoice.status == 'paid' %}
+                            <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">
+                                Payée
+                            </span>
+
+                        {% elseif invoice.status == 'pending_payment' %}
+                            <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs">
+                                En attente
+                            </span>
+
+                        {% else %}
+                            <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
+                                Brouillon
+                            </span>
+                        {% endif %}
+
+                    </td>
+
+                    <td class="p-4">
+                        {{ invoice.totalTtc }} €
+                    </td>
+
+                    <td class="p-4">
+                        {{ invoice.createdAt|date('d/m/Y') }}
+                    </td>
+
+                    <td class="p-4 text-right">
+
+                        <a href="{{ path('app_invoice_show', {'id': invoice.id}) }}"
+                           class="text-blue-600 hover:underline">
+                            Voir
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% else %}
+
+                <tr>
+                    <td colspan="6" class="p-8 text-center text-gray-400">
+                        Aucune facture
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clients{% endblock %}
+
+{% block body %}
+<div class="max-w-7xl mx-auto">
+
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-800">Clients</h1>
+            <p class="text-gray-500 mt-1">Gérez votre portefeuille client</p>
+        </div>
+
+        <a href="{{ path('app_client_new') }}"
+           class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-medium flex items-center gap-2 shadow-sm transition">
+            <span class="text-lg">+</span>
+            Ajouter un client
+        </a>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+
+        <table class="w-full">
+            <thead class="bg-gray-50 border-b border-gray-100">
+                <tr class="text-left text-sm text-gray-500">
+                    <th class="px-6 py-4 font-semibold">Client</th>
+                    <th class="px-6 py-4 font-semibold">Contact</th>
+                    <th class="px-6 py-4 font-semibold">Adresse</th>
+                    <th class="px-6 py-4 font-semibold text-center">Factures</th>
+                    <th class="px-6 py-4 font-semibold text-right">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-100">
+            {% for client in clients %}
+                <tr class="hover:bg-gray-50 transition">
+
+                    {# CLIENT #}
+                    <td class="px-6 py-5">
+                        <div>
+                            <p class="font-semibold text-gray-800">
+                                {{ client.name }}
+                            </p>
+
+                            <p class="text-sm text-gray-500">
+                                {{ client.firstName }} {{ client.lastName }}
+                            </p>
+                        </div>
+                    </td>
+
+                    {# CONTACT #}
+                    <td class="px-6 py-5">
+                        <div class="text-sm">
+                            <p class="text-gray-800 font-medium">
+                                {{ client.email }}
+                            </p>
+
+                            <p class="text-gray-500 mt-1">
+                                {{ client.phone }}
+                            </p>
+                        </div>
+                    </td>
+
+                    {# ADRESSE #}
+                    <td class="px-6 py-5">
+                        <div class="text-sm text-gray-600">
+                            <p>{{ client.address }}</p>
+
+                            <p class="mt-1">
+                                {{ client.postalCode }}
+                                {{ client.town }}
+                            </p>
+                        </div>
+                    </td>
+
+                    {# FACTURES #}
+                    <td class="px-6 py-5 text-center">
+                        <span class="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
+                            {{ client.invoices|length }} facture(s)
+                        </span>
+                    </td>
+
+                    {# ACTIONS #}
+                    <td class="px-6 py-5">
+                        <div class="flex items-center justify-end gap-3">
+
+                            <a href="{{ path('app_client_show', {'id': client.id}) }}"
+                               class="text-gray-400 hover:text-blue-600 transition"
+                               title="Voir">
+                                👁️
+                            </a>
+
+                            <a href="{{ path('app_client_edit', {'id': client.id}) }}"
+                               class="text-gray-400 hover:text-orange-500 transition"
+                               title="Modifier">
+                                ✏️
+                            </a>
+
+                            {{ include('client/_delete_form.html.twig') }}
+
+                        </div>
+                    </td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center py-16">
+
+                        <div class="flex flex-col items-center">
+                            <div class="text-6xl mb-4">👥</div>
+
+                            <h2 class="text-xl font-bold text-gray-700 mb-2">
+                                Aucun client
+                            </h2>
+
+                            <p class="text-gray-500 mb-6">
+                                Commencez par créer votre premier client.
+                            </p>
+
+                            <a href="{{ path('app_client_new') }}"
+                               class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-medium transition">
+                                Ajouter un client
+                            </a>
+                        </div>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}

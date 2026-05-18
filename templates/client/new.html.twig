@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau client{% endblock %}
+
+{% block body %}
+<div class="max-w-4xl mx-auto">
+
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">
+            Ajouter un client
+        </h1>
+
+        <p class="text-gray-500 mt-2">
+            Créez une nouvelle fiche client.
+        </p>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
+
+        {{ form_start(form) }}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div>
+                {{ form_label(form.name, 'Entreprise') }}
+                {{ form_widget(form.name, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_label(form.email, 'Email') }}
+                {{ form_widget(form.email, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_label(form.firstName, 'Prénom') }}
+                {{ form_widget(form.firstName, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_label(form.lastName, 'Nom') }}
+                {{ form_widget(form.lastName, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_label(form.phone, 'Téléphone fixe') }}
+                {{ form_widget(form.phone, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_label(form.mobilePhone, 'Téléphone mobile') }}
+                {{ form_widget(form.mobilePhone, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+            <div class="md:col-span-2">
+                {{ form_label(form.address, 'Adresse') }}
+                {{ form_widget(form.address, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_label(form.postalCode, 'Code postal') }}
+                {{ form_widget(form.postalCode, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_label(form.town, 'Ville') }}
+                {{ form_widget(form.town, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_label(form.siret, 'SIRET') }}
+                {{ form_widget(form.siret, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_label(form.siren, 'SIREN') }}
+                {{ form_widget(form.siren, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+            <div class="md:col-span-2">
+                {{ form_label(form.rib, 'RIB / IBAN') }}
+                {{ form_widget(form.rib, {
+                    attr: {
+                        class: 'w-full mt-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                    }
+                }) }}
+            </div>
+
+        </div>
+
+        <div class="flex items-center gap-4 mt-10">
+
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition">
+                Créer le client
+            </button>
+
+            <a href="{{ path('app_client_index') }}"
+               class="text-gray-500 hover:text-gray-700 font-medium">
+                Annuler
+            </a>
+
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facture{% endblock %}
+
+{% block body %}
+
+<div class="max-w-4xl mx-auto">
+
+    <div class="flex justify-between items-center mb-8">
+
+        <div>
+            <h1 class="text-3xl font-bold">
+                Facture {{ invoice.number }}
+            </h1>
+
+            <p class="text-gray-500 mt-1">
+                {{ invoice.createdAt|date('d/m/Y') }}
+            </p>
+        </div>
+
+        <a href="{{ path('app_invoice_index') }}"
+           class="text-blue-600">
+            Retour
+        </a>
+
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm p-8">
+
+        <div class="grid grid-cols-2 gap-8 mb-10">
+
+            <div>
+                <h2 class="font-bold mb-2">Client</h2>
+
+                <p>{{ invoice.client.name }}</p>
+                <p>{{ invoice.client.email }}</p>
+            </div>
+
+            <div>
+                <h2 class="font-bold mb-2">Montants</h2>
+
+                <p>HT : {{ invoice.totalHt }} €</p>
+                <p>TVA : {{ invoice.tva }} %</p>
+                <p class="font-bold text-lg">
+                    TTC : {{ invoice.totalTtc }} €
+                </p>
+            </div>
+
+        </div>
+
+        <div>
+
+            <h2 class="font-bold mb-4">
+                Produits / Prestations
+            </h2>
+
+            <table class="w-full">
+
+                <thead>
+                    <tr class="border-b">
+                        <th class="text-left py-3">Produit</th>
+                        <th class="text-left py-3">Qté</th>
+                        <th class="text-left py-3">Prix</th>
+                        <th class="text-left py-3">Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for item in invoice.invoiceItems %}
+
+                    <tr class="border-b">
+
+                        <td class="py-3">
+                            {{ item.product.name }}
+                        </td>
+
+                        <td class="py-3">
+                            {{ item.quantity }}
+                        </td>
+
+                        <td class="py-3">
+                            {{ item.unitPrice }} €
+                        </td>
+
+                        <td class="py-3">
+                            {{ item.totalHt }} €
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

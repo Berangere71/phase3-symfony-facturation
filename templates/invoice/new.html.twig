@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle facture{% endblock %}
+
+{% block body %}
+
+<div class="max-w-3xl mx-auto">
+
+    <h1 class="text-2xl font-bold mb-8">
+        Nouvelle facture
+    </h1>
+
+    <div class="bg-white p-8 rounded-2xl shadow-sm">
+
+        {{ form_start(form) }}
+
+            <div class="space-y-6">
+
+                {{ form_row(form.number) }}
+
+                {{ form_row(form.client) }}
+
+                {{ form_row(form.status) }}
+
+                {{ form_row(form.tva) }}
+
+            </div>
+
+            <button class="mt-8 bg-blue-600 text-white px-6 py-3 rounded-xl">
+                Enregistrer
+            </button>
+
+        {{ form_end(form) }}
+
+    </div>
+
+</div>
+
+{% endblock %}
